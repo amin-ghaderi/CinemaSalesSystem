@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Entity Framework Core (Compatible with .NET 8) -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
+
+    <!-- Dependency Injection -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+
+    <!-- Additional packages (required when ManagePackageVersionsCentrally is enabled) -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>
