@@ -1,4 +1,4 @@
-﻿using CinemaSales.Application.DependencyInjection;
+﻿using CinemaSales.Application;
 using CinemaSales.Infrastructure.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

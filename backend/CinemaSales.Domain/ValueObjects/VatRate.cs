@@ -1,4 +1,3 @@
-using CinemaSales.Domain.Common;
 using CinemaSales.Domain.Enums;
 
 namespace CinemaSales.Domain.ValueObjects;
