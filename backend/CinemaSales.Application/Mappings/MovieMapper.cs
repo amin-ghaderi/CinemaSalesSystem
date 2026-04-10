@@ -11,6 +11,7 @@ public static class MovieMapper
         {
             Id = movie.Id,
             Title = movie.Title,
+            Genre = movie.Genre,
             DurationMinutes = movie.DurationMinutes,
             Rating = movie.Rating.ToString()
         };

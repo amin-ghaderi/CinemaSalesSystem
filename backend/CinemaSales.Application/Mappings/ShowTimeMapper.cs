@@ -5,15 +5,20 @@ namespace CinemaSales.Application.Mappings;
 
 public static class ShowTimeMapper
 {
-    public static ShowTimeDto ToDto(ShowTime showTime)
+    public static ShowTimeDto ToDto(
+        ShowTime showTime,
+        string movieTitle = "",
+        decimal listPrice = 0)
     {
         return new ShowTimeDto
         {
             Id = showTime.Id,
             MovieId = showTime.MovieId,
+            MovieTitle = movieTitle,
             StartTime = showTime.StartTime.UtcDateTime,
             Auditorium = showTime.Auditorium,
-            Slot = showTime.Slot.ToString()
+            Slot = showTime.Slot.ToString(),
+            Price = listPrice
         };
     }
 }

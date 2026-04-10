@@ -35,26 +35,26 @@ public static class CinemaSalesDbContextSeed
             new(year, month, day, hour, minute, 0, WorkshopTimeZoneOffset);
 
         // --- Movies (title, duration minutes, rating) per workshop sheet ---
-        var furiosa = new Movie("Furiosa: A Mad Max Saga (2024)", 148, MovieRating.R);
+        var furiosa = new Movie("Furiosa: A Mad Max Saga (2024)", 148, MovieRating.R, genre: "Action");
         furiosa.ScheduleShowTime(At(2026, 5, 5, 18, 0), auditorium, ShowTimeSlot.Evening);
         furiosa.ScheduleShowTime(At(2026, 5, 9, 21, 0), auditorium, ShowTimeSlot.Night);
 
-        var dogDay = new Movie("Dog Day Afternoon (1975)", 125, MovieRating.R);
+        var dogDay = new Movie("Dog Day Afternoon (1975)", 125, MovieRating.R, genre: "Crime");
         dogDay.ScheduleShowTime(At(2026, 5, 7, 21, 0), auditorium, ShowTimeSlot.Night);
 
-        var fallGuy = new Movie("The Fall Guy (2024)", 126, MovieRating.Pg13);
+        var fallGuy = new Movie("The Fall Guy (2024)", 126, MovieRating.Pg13, genre: "Action");
         fallGuy.ScheduleShowTime(At(2026, 5, 5, 21, 0), auditorium, ShowTimeSlot.Night);
         fallGuy.ScheduleShowTime(At(2026, 5, 8, 21, 0), auditorium, ShowTimeSlot.Night);
 
-        var ironMan = new Movie("Iron Man 3 (2013)", 130, MovieRating.Pg13);
+        var ironMan = new Movie("Iron Man 3 (2013)", 130, MovieRating.Pg13, genre: "Action");
         ironMan.ScheduleShowTime(At(2026, 5, 6, 18, 0), auditorium, ShowTimeSlot.Evening);
         ironMan.ScheduleShowTime(At(2026, 5, 9, 13, 0), auditorium, ShowTimeSlot.Afternoon);
 
-        var civilWar = new Movie("Civil War (2024)", 109, MovieRating.R);
+        var civilWar = new Movie("Civil War (2024)", 109, MovieRating.R, genre: "Action");
         civilWar.ScheduleShowTime(At(2026, 5, 8, 18, 0), auditorium, ShowTimeSlot.Evening);
         civilWar.ScheduleShowTime(At(2026, 5, 9, 18, 0), auditorium, ShowTimeSlot.Evening);
 
-        var roomNextDoor = new Movie("The Room Next Door (2024)", 107, MovieRating.Pg13);
+        var roomNextDoor = new Movie("The Room Next Door (2024)", 107, MovieRating.Pg13, genre: "Drama");
         roomNextDoor.ScheduleShowTime(At(2026, 5, 6, 21, 0), auditorium, ShowTimeSlot.Night);
         roomNextDoor.ScheduleShowTime(At(2026, 5, 7, 18, 0), auditorium, ShowTimeSlot.Evening);
 

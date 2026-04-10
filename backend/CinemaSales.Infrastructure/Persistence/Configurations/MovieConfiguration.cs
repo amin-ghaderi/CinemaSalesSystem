@@ -13,6 +13,7 @@ internal sealed class MovieConfiguration : IEntityTypeConfiguration<Movie>
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.Title).HasMaxLength(512).IsRequired();
+        builder.Property(m => m.Genre).HasMaxLength(128).IsRequired();
         builder.Property(m => m.DurationMinutes).IsRequired();
         builder.Property(m => m.Rating).HasConversion<int>().IsRequired();
         builder.Property(m => m.Description).HasMaxLength(4000).IsRequired();

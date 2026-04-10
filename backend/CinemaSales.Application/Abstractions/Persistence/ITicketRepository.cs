@@ -9,6 +9,8 @@ public interface ITicketRepository
 {
     Task<Ticket?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
+    Task<IReadOnlyList<Ticket>> GetAllAsync(CancellationToken cancellationToken);
+
     Task<IReadOnlyList<Ticket>> GetByShowTimeIdAsync(Guid showTimeId, CancellationToken cancellationToken);
 
     Task AddAsync(Ticket ticket, CancellationToken cancellationToken);

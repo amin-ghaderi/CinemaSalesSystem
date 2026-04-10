@@ -17,6 +17,9 @@ public static class DependencyInjection
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<ISnackRepository, SnackRepository>();
+        services.AddScoped<ICampaignRepository, CampaignRepository>();
+        services.AddScoped<IOrderSnackLineRepository, OrderSnackLineRepository>();
 
         return services;
     }

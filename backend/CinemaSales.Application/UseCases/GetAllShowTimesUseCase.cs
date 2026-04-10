@@ -6,12 +6,12 @@ using CinemaSales.Domain.Aggregates.Movies;
 
 namespace CinemaSales.Application.UseCases;
 
-public sealed class GetShowTimesByMovieIdUseCase
+public sealed class GetAllShowTimesUseCase
 {
     private readonly IShowTimeRepository _showTimeRepository;
     private readonly IMovieRepository _movieRepository;
 
-    public GetShowTimesByMovieIdUseCase(
+    public GetAllShowTimesUseCase(
         IShowTimeRepository showTimeRepository,
         IMovieRepository movieRepository)
     {
@@ -19,20 +19,17 @@ public sealed class GetShowTimesByMovieIdUseCase
         _movieRepository = movieRepository;
     }
 
-    public async Task<IReadOnlyList<ShowTimeDto>> ExecuteAsync(
-        Guid movieId,
-        CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ShowTimeDto>> ExecuteAsync(CancellationToken cancellationToken)
     {
-        IReadOnlyList<ShowTime> showTimes = await _showTimeRepository
-            .GetByMovieIdAsync(movieId, cancellationToken);
-
-        Movie? movie = await _movieRepository.GetByIdAsync(movieId, cancellationToken);
-        string title = movie?.Title ?? string.Empty;
+        IReadOnlyList<ShowTime> showTimes = await _showTimeRepository.GetAllAsync(cancellationToken);
+        IReadOnlyList<Movie> movies = await _movieRepository.GetAllAsync(cancellationToken);
+        var titlesByMovieId = movies.ToDictionary(m => m.Id, m => m.Title);
 
         return showTimes
+            .OrderBy(st => st.StartTime)
             .Select(st => ShowTimeMapper.ToDto(
                 st,
-                title,
+                titlesByMovieId.GetValueOrDefault(st.MovieId, string.Empty),
                 ShowTimeListPricing.GetListPrice(st.Slot)))
             .ToList();
     }

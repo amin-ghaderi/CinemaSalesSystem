@@ -21,6 +21,13 @@ public sealed class TicketRepository : ITicketRepository
             .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 
+    public async Task<IReadOnlyList<Ticket>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        return await _context.Tickets
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<IReadOnlyList<Ticket>> GetByShowTimeIdAsync(
         Guid showTimeId,
         CancellationToken cancellationToken)
@@ -34,5 +41,6 @@ public sealed class TicketRepository : ITicketRepository
     public async Task AddAsync(Ticket ticket, CancellationToken cancellationToken)
     {
         await _context.Tickets.AddAsync(ticket, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

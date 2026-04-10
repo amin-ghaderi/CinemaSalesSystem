@@ -17,25 +17,28 @@ public sealed class Movie : AggregateRoot
     /// <param name="durationMinutes">Running time in minutes.</param>
     /// <param name="rating">Content rating.</param>
     /// <param name="description">Synopsis or marketing copy.</param>
-    public Movie(string title, int durationMinutes, MovieRating rating, string? description = null)
+    /// <param name="genre">Display genre label (e.g. for listings).</param>
+    public Movie(string title, int durationMinutes, MovieRating rating, string? description = null, string genre = "")
         : base()
     {
         Title = Guard.AgainstNullOrWhiteSpace(title, nameof(title));
         DurationMinutes = Guard.AgainstNonPositive(durationMinutes, nameof(durationMinutes));
         Rating = rating;
         Description = description?.Trim() ?? string.Empty;
+        Genre = genre?.Trim() ?? string.Empty;
     }
 
     /// <summary>
     /// Initializes a movie with a known identifier.
     /// </summary>
-    public Movie(Guid id, string title, int durationMinutes, MovieRating rating, string? description = null)
+    public Movie(Guid id, string title, int durationMinutes, MovieRating rating, string? description = null, string genre = "")
         : base(id)
     {
         Title = Guard.AgainstNullOrWhiteSpace(title, nameof(title));
         DurationMinutes = Guard.AgainstNonPositive(durationMinutes, nameof(durationMinutes));
         Rating = rating;
         Description = description?.Trim() ?? string.Empty;
+        Genre = genre?.Trim() ?? string.Empty;
     }
 
     /// <summary>
@@ -57,6 +60,11 @@ public sealed class Movie : AggregateRoot
     /// Gets the description.
     /// </summary>
     public string Description { get; private set; }
+
+    /// <summary>
+    /// Gets the genre label for display (e.g. in console listings).
+    /// </summary>
+    public string Genre { get; private set; }
 
     /// <summary>
     /// Gets show times owned by this movie.
