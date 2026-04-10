@@ -1,8 +1,87 @@
 root = true
 
 [*.cs]
+charset = utf-8
 indent_style = space
 indent_size = 4
-charset = utf-8
 end_of_line = lf
 insert_final_newline = true
+
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = true
+
+dotnet_analyzer_diagnostic.severity = warning
+
+dotnet_diagnostic.CA1822.severity = warning
+dotnet_diagnostic.CA2000.severity = warning
+dotnet_diagnostic.CA1305.severity = warning
+dotnet_diagnostic.CA1062.severity = warning
+# High-performance logging (LoggerMessage) is optional for this console host bootstrap.
+dotnet_diagnostic.CA1848.severity = none
+
+# IDE code-style: disabled as errors to avoid large refactors (Domain DDD style, file-scoped namespaces, var, etc.)
+# CA* and StyleCop (below) still surface real quality issues.
+dotnet_diagnostic.IDE0008.severity = none
+dotnet_diagnostic.IDE0022.severity = none
+dotnet_diagnostic.IDE0024.severity = none
+dotnet_diagnostic.IDE0028.severity = none
+dotnet_diagnostic.IDE0032.severity = none
+dotnet_diagnostic.IDE0046.severity = none
+dotnet_diagnostic.IDE0058.severity = none
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_diagnostic.IDE0160.severity = none
+dotnet_diagnostic.IDE0290.severity = none
+dotnet_diagnostic.IDE0055.severity = none
+dotnet_diagnostic.IDE0270.severity = none
+dotnet_diagnostic.IDE0305.severity = none
+# Avoid requiring XML doc generation for unused-import analysis in CI/Docker (Roslyn #41640).
+dotnet_diagnostic.IDE0005.severity = none
+dotnet_diagnostic.EnableGenerateDocumentationFile.severity = none
+
+# StyleCop: spacing in compact DTO/record types
+dotnet_diagnostic.SA1516.severity = none
+
+# StyleCop: keep documentation rules non-blocking for internal/workshop codebase
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1000.severity = none
+dotnet_diagnostic.SA1009.severity = none
+dotnet_diagnostic.SA1101.severity = none
+dotnet_diagnostic.SA1111.severity = none
+dotnet_diagnostic.SA1118.severity = none
+dotnet_diagnostic.SA1124.severity = none
+dotnet_diagnostic.SA1200.severity = none
+dotnet_diagnostic.SA1201.severity = none
+dotnet_diagnostic.SA1202.severity = none
+dotnet_diagnostic.SA1204.severity = none
+dotnet_diagnostic.SA1309.severity = none
+dotnet_diagnostic.SA1311.severity = none
+dotnet_diagnostic.SA1402.severity = none
+dotnet_diagnostic.SA1413.severity = none
+dotnet_diagnostic.SA1518.severity = none
+dotnet_diagnostic.SA1600.severity = none
+dotnet_diagnostic.SA1601.severity = none
+dotnet_diagnostic.SA1602.severity = none
+dotnet_diagnostic.SA1611.severity = none
+dotnet_diagnostic.SA1615.severity = none
+dotnet_diagnostic.SA1618.severity = none
+dotnet_diagnostic.SA1623.severity = none
+dotnet_diagnostic.SA1629.severity = none
+dotnet_diagnostic.SA1633.severity = none
+dotnet_diagnostic.SA1634.severity = none
+dotnet_diagnostic.SA1635.severity = none
+dotnet_diagnostic.SA1636.severity = none
+dotnet_diagnostic.SA1637.severity = none
+dotnet_diagnostic.SA1638.severity = none
+dotnet_diagnostic.SA1642.severity = none
+dotnet_diagnostic.SA1643.severity = none
+dotnet_diagnostic.SA1649.severity = none
+dotnet_diagnostic.SA1651.severity = none
+
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+indent_size = 2
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

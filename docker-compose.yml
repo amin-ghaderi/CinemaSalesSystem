@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cinemasales_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cinemasales
+    ports:
+      - "5432:5432"
+    volumes:
+      - cinemasales_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cinemasales"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  cinemasalessystem:
+    container_name: cinemasalessystem
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cinemasalessystem:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+      - DatabaseProvider=PostgreSQL
+      - ConnectionStrings__PostgreSQL=Host=postgres;Port=5432;Database=cinemasales;Username=postgres;Password=postgres
+    volumes:
+      - cinemasales_logs:/app/logs
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+volumes:
+  cinemasales_logs:
+  cinemasales_pgdata:

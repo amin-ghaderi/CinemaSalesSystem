@@ -1,23 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
-
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\backend\CinemaSales.Domain\CinemaSales.Domain.csproj" />
-    <ProjectReference Include="..\..\backend\CinemaSales.Application\CinemaSales.Application.csproj" />
+    <ProjectReference Include="..\..\src\CinemaSalesSystem.Domain\CinemaSalesSystem.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CinemaSalesSystem.Application\CinemaSalesSystem.Application.csproj" />
   </ItemGroup>
-
 </Project>

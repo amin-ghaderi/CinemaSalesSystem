@@ -38,6 +38,21 @@ artifacts/
 *.coverage
 *.coveragexml
 
+## Tooling / IDE
+.vscode/
+
+## Logs and local data
+*.log
+*.db
+*.cache
+
+## Code coverage
+coverage/
+coverage-report/
+
+## Test output
+TestResults/
+
 ## OS
 .DS_Store
 Thumbs.db

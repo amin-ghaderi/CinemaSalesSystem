@@ -1,4 +1,4 @@
-﻿using CinemaSales.Domain.Common;
+using CinemaSales.Domain.Common;
 using CinemaSales.Domain.ValueObjects;
 
 namespace CinemaSales.UnitTests;
@@ -10,14 +10,14 @@ public class UnitTest1
     }
 
     [Fact]
-    public void Entity_HasNonEmptyId()
+    public void EntityHasNonEmptyId()
     {
         var entity = new TestEntity();
         Assert.NotEqual(Guid.Empty, entity.Id);
     }
 
     [Fact]
-    public void Money_RejectsNegativeAmount()
+    public void MoneyRejectsNegativeAmount()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new Money(-1, "EUR"));
     }

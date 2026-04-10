@@ -17,7 +17,7 @@ Phase 4 successfully implemented a Console-based Presentation Layer using .NET 8
 - Application Integration and Execution
 
 ## 3. Final Folder Structure
-backend/CinemaSales.ConsoleUI/
+src/CinemaSalesSystem.Presentation/
 ├── Constants/
 ├── Helpers/
 ├── Menus/
@@ -26,9 +26,9 @@ backend/CinemaSales.ConsoleUI/
 └── Program.cs
 
 ## 4. Dependency Configuration
-The Console UI depends only on:
-- CinemaSales.Application
-- CinemaSales.Infrastructure
+The Presentation project (`CinemaSalesSystem.Presentation`) depends only on:
+- CinemaSalesSystem.Application
+- CinemaSalesSystem.Infrastructure
 
 No direct dependency on the Domain Layer exists.
 
