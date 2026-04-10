@@ -9,6 +9,18 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <RootNamespace>CinemaSales</RootNamespace>
     <LangVersion>latest</LangVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <Company>AMIN GHADERI</Company>
+    <Authors>AMIN GHADERI</Authors>
+    <Product>CinemaSalesSystem</Product>
+    <RepositoryUrl>https://github.com/amin-ghaderi/CinemaSalesSystem</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/amin-ghaderi/CinemaSalesSystem</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© 2026 AMIN GHADERI. All Rights Reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('tests'))">

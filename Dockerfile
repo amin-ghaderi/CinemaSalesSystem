@@ -1,22 +1,11 @@
 # -------------------------------
-# Stage 1: Build
+# Build Stage
 # -------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+COPY . .
 
-# Copy solution and project files
-COPY CinemaSalesSystem.sln .
-COPY Directory.Build.props .
-COPY Directory.Packages.props .
-COPY .editorconfig .
-
-COPY src/CinemaSalesSystem.Domain/ src/CinemaSalesSystem.Domain/
-COPY src/CinemaSalesSystem.Application/ src/CinemaSalesSystem.Application/
-COPY src/CinemaSalesSystem.Infrastructure/ src/CinemaSalesSystem.Infrastructure/
-COPY src/CinemaSalesSystem.Presentation/ src/CinemaSalesSystem.Presentation/
-
-# Restore and publish Presentation (transitive restore of Domain/Application/Infrastructure).
-# The full solution is not restored here because test projects are excluded from the image context.
+# Restore presentation project only: .dockerignore excludes tests/, so restoring the full .sln would fail.
 RUN dotnet restore src/CinemaSalesSystem.Presentation/CinemaSalesSystem.Presentation.csproj
 
 RUN dotnet publish src/CinemaSalesSystem.Presentation/CinemaSalesSystem.Presentation.csproj \
@@ -26,20 +15,12 @@ RUN dotnet publish src/CinemaSalesSystem.Presentation/CinemaSalesSystem.Presenta
     /p:UseAppHost=false
 
 # -------------------------------
-# Stage 2: Runtime
+# Runtime Stage
 # -------------------------------
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
-
-# Copy published output
 COPY --from=build /app/publish .
-
-# Create logs directory for Serilog
 RUN mkdir -p /app/logs
-
-# Environment variables
 ENV DOTNET_ENVIRONMENT=Production
 ENV DOTNET_RUNNING_IN_CONTAINER=true
-
-# Entry point
 ENTRYPOINT ["dotnet", "CinemaSalesSystem.Presentation.dll"]

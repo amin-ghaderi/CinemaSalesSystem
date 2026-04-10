@@ -2,6 +2,7 @@ using CinemaSales.ConsoleUI.Constants;
 using CinemaSales.ConsoleUI.Helpers;
 using CinemaSales.ConsoleUI.Menus;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -11,31 +12,16 @@ public class ConsoleApp : IHostedService
 {
     private readonly ILogger<ConsoleApp> _logger;
     private readonly IHostApplicationLifetime _lifetime;
-    private readonly MovieService _movieService;
-    private readonly ShowTimeService _showTimeService;
-    private readonly TicketService _ticketService;
-    private readonly SnackService _snackService;
-    private readonly CampaignService _campaignService;
-    private readonly SalesReportService _salesReportService;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public ConsoleApp(
         ILogger<ConsoleApp> logger,
         IHostApplicationLifetime lifetime,
-        MovieService movieService,
-        ShowTimeService showTimeService,
-        TicketService ticketService,
-        SnackService snackService,
-        CampaignService campaignService,
-        SalesReportService salesReportService)
+        IServiceScopeFactory scopeFactory)
     {
         _logger = logger;
         _lifetime = lifetime;
-        _movieService = movieService;
-        _showTimeService = showTimeService;
-        _ticketService = ticketService;
-        _snackService = snackService;
-        _campaignService = campaignService;
-        _salesReportService = salesReportService;
+        _scopeFactory = scopeFactory;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -95,19 +81,28 @@ public class ConsoleApp : IHostedService
 
     private async Task ShowMoviesAsync()
     {
-        var movies = await _movieService.GetMoviesAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var movieService = scope.ServiceProvider.GetRequiredService<MovieService>();
+        var movies = await movieService.GetMoviesAsync();
         MovieMenu.DisplayMovies(movies);
     }
 
     private async Task ShowShowTimesAsync()
     {
-        var showTimes = await _showTimeService.GetShowTimesAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var showTimeService = scope.ServiceProvider.GetRequiredService<ShowTimeService>();
+        var showTimes = await showTimeService.GetShowTimesAsync();
         ShowTimeMenu.DisplayShowTimes(showTimes);
     }
 
     private async Task PurchaseTicketAsync()
     {
-        var showTimes = await _showTimeService.GetShowTimesAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var sp = scope.ServiceProvider;
+        var showTimeService = sp.GetRequiredService<ShowTimeService>();
+        var ticketService = sp.GetRequiredService<TicketService>();
+
+        var showTimes = await showTimeService.GetShowTimesAsync();
         var showTimeId = TicketMenu.PromptShowTimeSelection(showTimes);
 
         if (showTimeId == Guid.Empty)
@@ -119,7 +114,7 @@ public class ConsoleApp : IHostedService
 
         try
         {
-            var result = await _ticketService.PurchaseTicketAsync(showTimeId, quantity);
+            var result = await ticketService.PurchaseTicketAsync(showTimeId, quantity);
             TicketMenu.DisplayPurchaseResult(result);
         }
         catch (Exception ex)
@@ -130,7 +125,11 @@ public class ConsoleApp : IHostedService
 
     private async Task PurchaseSnackAsync()
     {
-        var snacks = await _snackService.GetSnacksAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var sp = scope.ServiceProvider;
+        var snackService = sp.GetRequiredService<SnackService>();
+
+        var snacks = await snackService.GetSnacksAsync();
         var snackId = SnackMenu.PromptSnackSelection(snacks);
 
         if (snackId == Guid.Empty)
@@ -142,7 +141,7 @@ public class ConsoleApp : IHostedService
 
         try
         {
-            var (name, purchasedQuantity, unitPrice, totalPrice) = await _snackService.PurchaseSnackAsync(snackId, quantity);
+            var (name, purchasedQuantity, unitPrice, totalPrice) = await snackService.PurchaseSnackAsync(snackId, quantity);
             SnackMenu.DisplayPurchaseResult(
                 name,
                 purchasedQuantity,
@@ -157,13 +156,17 @@ public class ConsoleApp : IHostedService
 
     private async Task ShowCampaignsAsync()
     {
-        var campaigns = await _campaignService.GetCampaignsAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var campaignService = scope.ServiceProvider.GetRequiredService<CampaignService>();
+        var campaigns = await campaignService.GetCampaignsAsync();
         CampaignMenu.DisplayCampaigns(campaigns);
     }
 
     private async Task ShowSalesReportAsync()
     {
-        var report = await _salesReportService.GetSalesReportAsync();
+        using var scope = _scopeFactory.CreateScope();
+        var salesReportService = scope.ServiceProvider.GetRequiredService<SalesReportService>();
+        var report = await salesReportService.GetSalesReportAsync();
         SalesReportMenu.DisplayReport(report);
     }
 
